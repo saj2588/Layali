@@ -1,4 +1,4 @@
-namespace LayaliAlfajar.Models
+namespace Layali.Models
 {
     public class ErrorViewModel
     {
