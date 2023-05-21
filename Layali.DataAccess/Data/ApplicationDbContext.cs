@@ -1,24 +1,44 @@
 ﻿using Layali.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Layali.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
         }
 
-        public  DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "NameOfDress", DisplayOrder = 1 },
                 new Category { Id = 2, Name = "NameOfDress", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "NameOfDress", DisplayOrder = 3 }
+
+                );
+
+            modelBuilder.Entity<Company>().HasData(
+                new Company { Id = 1, Name = "Valencia International", StreetAddress = "123 norway", City = "Doha", PostCode = "ig38bb", State = "Qatar", PhoneNumber = "457854" },
+                new Company { Id = 2, Name = "Technology Services", StreetAddress = "575 jhelum", City = "Doha", PostCode = "ig38bb", State = "Qatar", PhoneNumber = "457854" },
+                new Company { Id = 3, Name = "Bakery Ingredients", StreetAddress = "778 dubai", City = "Doha", PostCode = "ig38bb", State = "Qatar", PhoneNumber = "457854" }
 
                 );
 
@@ -35,7 +55,7 @@ namespace Layali.DataAccess.Data
                     Price50 = 85,
                     Price100 = 80,
                     CategoryId = 1,
-                    ImageUrl=""
+                    ImageUrl = ""
                 },
                 new Product
                 {

@@ -20,7 +20,22 @@ namespace Layali.DataAccess.Repository
 
         public void Update(Product obj)
         {
-            _db.Products.Update(obj);
+            var objFromDb = _db.Products.FirstOrDefault(u=>u.Id == obj.Id);
+
+            if (objFromDb != null)
+            {
+                objFromDb.Style = obj.Style;
+                objFromDb.Description = obj.Description;
+                objFromDb.Price = obj.Price;
+                objFromDb.ListPrice = obj.ListPrice;
+                objFromDb.Price50 = obj.Price50;
+                objFromDb.Category = obj.Category;
+                objFromDb.Price100 = obj.Price100;
+                if(obj.ImageUrl != null)
+                {
+                    objFromDb.ImageUrl = obj.ImageUrl;
+                }
+            }
         }
     }
 }

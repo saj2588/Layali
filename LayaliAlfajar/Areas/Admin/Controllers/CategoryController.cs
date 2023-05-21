@@ -1,11 +1,14 @@
 ﻿using Layali.DataAccess.Data;
 using Layali.DataAccess.Repository.IRepository;
 using Layali.Models;
+using Layali.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LayaliAlfajar.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
